@@ -84,4 +84,6 @@ const character = {
     secondarySkills: secondarySkills,
 };
 
-formatOutput(character);
+const displayOutput = () => {
+    document.getElementById("output").innerHTML = formatOutput(character);
+};
