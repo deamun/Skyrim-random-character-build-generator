@@ -43,7 +43,46 @@ const skillListGenerator = (skillList, numSkills, primarySkills = []) => {
 };
 
 const formatOutput = character => {
-    console.log(`Your character is a ${character.morality} ${character.gender} ${character.race}. Their primary skills are ${character.primarySkills[0]} and ${character.primarySkills[1]}, with ${character.secondarySkills[0]}, ${character.secondarySkills[1]} and ${character.secondarySkills[2]} to complement their adventure. Have fun!`);
+    return (`Your character is a ${character.morality} ${character.gender} ${character.race}. Their primary skills are ${character.primarySkills[0]} and ${character.primarySkills[1]}, with ${character.secondarySkills[0]}, ${character.secondarySkills[1]} and ${character.secondarySkills[2]} to complement their adventure. Have fun!`);
+};
+
+const createCharacter = () => {
+    let primarySkills = skillListGenerator(skillList, 2);
+    let secondarySkills = skillListGenerator(skillList, 3, primarySkills);
+
+    for (let i = 0; i < primarySkills.length; i++) {
+        if (primarySkills[i] === 'Two-Handed') {
+            primarySkills[i] = primarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length - 1)];        
+        } else if (primarySkills[i] === 'One-Handed') {
+            primarySkills[i] = primarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length)];
+        } else if (primarySkills[i] === 'Destruction') {
+            primarySkills[i] = primarySkills[i] + ': ' + magicElementList[randomNumberGenerator(magicElementList.length)];
+        };
+    };
+    
+    for (i = 0; i < secondarySkills.length; i++) {
+        if (secondarySkills[i] === 'Two-Handed') {
+            secondarySkills[i] = secondarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length - 1)];        
+        } else if (secondarySkills[i] === 'One-Handed') {
+            secondarySkills[i] = secondarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length)];
+        } else if (secondarySkills[i] === 'Destruction') {
+            secondarySkills[i] = secondarySkills[i] + ': ' + magicElementList[randomNumberGenerator(magicElementList.length)];
+        }; 
+    };
+    
+    const character = {
+        morality: moralityList[randomNumberGenerator(moralityList.length)],
+        gender: genderList[randomNumberGenerator(genderList.length)],
+        race: raceList[randomNumberGenerator(raceList.length)],
+        primarySkills: primarySkills,
+        secondarySkills: secondarySkills,
+    };
+
+    return character;
+};
+
+const displayOutput = () => {
+    document.getElementById("output").innerHTML = formatOutput(createCharacter());
 };
 
 const moralityList = ['lawful good', 'neutral good', 'chaotic good', 'lawful neutral', 'neutral', 'chaotic neutral', 'lawful evil', 'neutral evil', 'chaotic evil'];
@@ -52,38 +91,3 @@ const raceList = ['Altmer (High Elf)', 'Argonian', 'Bosmer (Wood Elf)', 'Breton'
 const skillList = ['Alchemy', 'Alteration', 'Archery', 'Block', 'Conjuration', 'Destruction', 'Enchanting', 'Heavy Armor', 'Illusion', 'Light Armor', 'Lockpicking', 'One-Handed', 'Pickpocket', 'Restoration', 'Smithing', 'Sneak', 'Speech', 'Two-Handed'];
 const weaponClassList = ['Axe', 'Hammer', 'Sword', 'Dagger'];
 const magicElementList = ['Fire', 'Lightning', 'Frost'];
-
-let primarySkills = skillListGenerator(skillList, 2);
-let secondarySkills = skillListGenerator(skillList, 3, primarySkills);
-
-for (let i = 0; i < primarySkills.length; i++) {
-    if (primarySkills[i] === 'Two-Handed') {
-        primarySkills[i] = primarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length - 1)];        
-    } else if (primarySkills[i] === 'One-Handed') {
-        primarySkills[i] = primarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length)];
-    } else if (primarySkills[i] === 'Destruction') {
-        primarySkills[i] = primarySkills[i] + ': ' + magicElementList[randomNumberGenerator(magicElementList.length)];
-    };
-};
-
-for (i = 0; i < secondarySkills.length; i++) {
-    if (secondarySkills[i] === 'Two-Handed') {
-        secondarySkills[i] = secondarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length - 1)];        
-    } else if (secondarySkills[i] === 'One-Handed') {
-        secondarySkills[i] = secondarySkills[i] + ': ' + weaponClassList[randomNumberGenerator(weaponClassList.length)];
-    } else if (secondarySkills[i] === 'Destruction') {
-        secondarySkills[i] = secondarySkills[i] + ': ' + magicElementList[randomNumberGenerator(magicElementList.length)];
-    }; 
-};
-
-const character = {
-    morality: moralityList[randomNumberGenerator(moralityList.length)],
-    gender: genderList[randomNumberGenerator(genderList.length)],
-    race: raceList[randomNumberGenerator(raceList.length)],
-    primarySkills: primarySkills,
-    secondarySkills: secondarySkills,
-};
-
-const displayOutput = () => {
-    document.getElementById("output").innerHTML = formatOutput(character);
-};
