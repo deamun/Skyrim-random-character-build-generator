@@ -50,7 +50,7 @@ $ node script.js
 - If the build doesn't sound any fun, you can run the generator again by using the above command until you're happy with the character.
 
 ## Status
-Project is: *finished*.
+Project is: *paused*.
 
 ## Inspiration
 I often come back to play Skyrim and have long since burned through my own list of character builds to try out. 
